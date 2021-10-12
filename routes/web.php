@@ -14,7 +14,7 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return \Illuminate\Support\Str::random(32);
 });
 
 $router->group(['prefix' => 'api/'], function () use($router){
@@ -30,4 +30,15 @@ $router->group(['prefix' => 'api/'], function () use($router){
     $router->get('barang/{id}', 'BarangController@show');
     $router->put('barang/{id}', 'BarangController@update');
     $router->delete('barang/{id}', 'BarangController@destroy');
+
+    // auth
+    $router->post('register', 'AuthController@register');
+    $router->post('login', 'AuthController@login');
+
+    // user
+    $router->get('users', 'UserController@index');
+    $router->post('user', 'UserController@create');
+    $router->get('user/{id}', 'UserController@show');
+    $router->put('user/{id}', 'UserController@update');
+    $router->delete('user/{id}', 'UserController@destroy');
 });
